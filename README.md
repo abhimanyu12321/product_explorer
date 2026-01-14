@@ -29,6 +29,7 @@ A modern, responsive product listing application built with Next.js and shadcn/u
 - **Product Details** - Individual product pages with full information
 - **Responsive Design** - Mobile-first design with glassmorphism effects
 - **Loading & Error States** - Proper handling of async states
+- **Dark/Light Theme** - Support for dark and light themes
 
 ## Assumptions / Trade-offs
 
