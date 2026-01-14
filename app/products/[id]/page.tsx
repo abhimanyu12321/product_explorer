@@ -1,20 +1,16 @@
-import { fetchProductById, fetchProducts } from "@/lib/api";
+import { fetchProductById } from "@/lib/api";
 import { ProductDetail } from "@/components/ProductDetail";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// Force dynamic rendering to avoid build-time API calls
+export const dynamic = "force-dynamic";
+
 interface ProductPageProps {
   params: Promise<{
     id: string;
   }>;
-}
-
-export async function generateStaticParams() {
-  const products = await fetchProducts();
-  return products.map((product) => ({
-    id: product.id.toString(),
-  }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps) {
