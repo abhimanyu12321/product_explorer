@@ -1,13 +1,30 @@
 import { Product } from "./types";
 
-const API_BASE_URL = "https://fakestoreapi.com";
+/**
+ * Helper to get absolute URL for API calls
+ * Works in both server and client components
+ */
+function getBaseUrl() {
+  // For server-side rendering
+  if (typeof window === "undefined") {
+    // Check for Vercel environment
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+    // Local development
+    return "http://localhost:3000";
+  }
+  // For client-side rendering
+  return "";
+}
 
 /**
- * Fetches all products from the FakeStore API
+ * Fetches all products from the internal API route
  */
 export async function fetchProducts(): Promise<Product[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/products`, {
+    const baseUrl = getBaseUrl();
+    const response = await fetch(`${baseUrl}/api/products`, {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
 
@@ -24,11 +41,12 @@ export async function fetchProducts(): Promise<Product[]> {
 }
 
 /**
- * Fetches a single product by ID
+ * Fetches a single product by ID from the internal API route
  */
 export async function fetchProductById(id: string | number): Promise<Product> {
   try {
-    const response = await fetch(`${API_BASE_URL}/products/${id}`, {
+    const baseUrl = getBaseUrl();
+    const response = await fetch(`${baseUrl}/api/products/${id}`, {
       next: { revalidate: 3600 },
     });
 
@@ -48,11 +66,12 @@ export async function fetchProductById(id: string | number): Promise<Product> {
 }
 
 /**
- * Fetches all available product categories
+ * Fetches all available product categories from the internal API route
  */
 export async function fetchCategories(): Promise<string[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/products/categories`, {
+    const baseUrl = getBaseUrl();
+    const response = await fetch(`${baseUrl}/api/categories`, {
       next: { revalidate: 3600 },
     });
 
