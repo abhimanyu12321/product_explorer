@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Product Explorer Dashboard
 
-## Getting Started
+A modern, responsive product listing application built with Next.js and shadcn/ui.
 
-First, run the development server:
+## Setup Instructions
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Install dependencies**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Run the development server**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+3. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+## Features Implemented
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Product Listing** - Browse products from the FakeStore API
+- **Search** - Real-time client-side search by product name
+- **Category Filtering** - Filter products by category
+- **Favorites** - Mark/unmark products as favorites with localStorage persistence
+- **Favorites Filter** - View only favorited products
+- **Product Details** - Individual product pages with full information
+- **Responsive Design** - Mobile-first design with glassmorphism effects
+- **Loading & Error States** - Proper handling of async states
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Assumptions / Trade-offs
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Client-side filtering** - All filtering happens on the client for better UX, assuming the product dataset is manageable
+- **localStorage for favorites** - Simple persistence solution; data is browser-specific and not synced across devices
+- **Static category list** - Categories are derived from the API response rather than hardcoded
