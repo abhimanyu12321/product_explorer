@@ -5,9 +5,15 @@ import { ProductCard } from "./ProductCard";
 
 interface ProductGridProps {
   products: Product[];
+  isFavorite?: (productId: number) => boolean;
+  onToggleFavorite?: (productId: number) => void;
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
+export function ProductGrid({
+  products,
+  isFavorite,
+  onToggleFavorite,
+}: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-4">
@@ -31,7 +37,11 @@ export function ProductGrid({ products }: ProductGridProps) {
             animationFillMode: "both",
           }}
         >
-          <ProductCard product={product} />
+          <ProductCard
+            product={product}
+            isFavorite={isFavorite?.(product.id)}
+            onToggleFavorite={onToggleFavorite}
+          />
         </div>
       ))}
     </div>

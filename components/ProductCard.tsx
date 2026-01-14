@@ -5,13 +5,25 @@ import Link from "next/link";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Product } from "@/lib/types";
-import { Star } from "lucide-react";
+import { Star, Heart } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
+  isFavorite?: boolean;
+  onToggleFavorite?: (productId: number) => void;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({
+  product,
+  isFavorite = false,
+  onToggleFavorite,
+}: ProductCardProps) {
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onToggleFavorite?.(product.id);
+  };
+
   return (
     <Link href={`/products/${product.id}`} className="group">
       <Card className="overflow-hidden h-full transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-1 bg-card/50 backdrop-blur-sm border-2 hover:border-primary/50">
@@ -23,7 +35,7 @@ export function ProductCard({ product }: ProductCardProps) {
             className="object-contain p-4 transition-transform duration-500 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute top-2 right-2">
+          <div className="absolute top-2 right-2 flex gap-2">
             <Badge
               variant="secondary"
               className="backdrop-blur-sm bg-background/80"
@@ -31,6 +43,26 @@ export function ProductCard({ product }: ProductCardProps) {
               {product.category}
             </Badge>
           </div>
+          {/* Favorite Button */}
+          {onToggleFavorite && (
+            <button
+              onClick={handleFavoriteClick}
+              className="absolute top-2 left-2 p-2 rounded-full bg-background/80 backdrop-blur-sm 
+                         hover:bg-background/95 transition-all duration-300 hover:scale-110
+                         shadow-md hover:shadow-lg z-10"
+              aria-label={
+                isFavorite ? "Remove from favorites" : "Add to favorites"
+              }
+            >
+              <Heart
+                className={`h-5 w-5 transition-all duration-300 ${
+                  isFavorite
+                    ? "fill-red-500 text-red-500"
+                    : "text-muted-foreground hover:text-red-500"
+                }`}
+              />
+            </button>
+          )}
           {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
