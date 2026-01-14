@@ -1,32 +1,23 @@
 import { Product } from "./types";
+import {
+  products as staticProducts,
+  categories as staticCategories,
+} from "./data/products";
 
 /**
- * Helper to get absolute URL for API calls
- * Works in both server and client components
- */
-function getBaseUrl() {
-  // For server-side rendering
-  if (typeof window === "undefined") {
-    // Check for Vercel environment
-    if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}`;
-    }
-    // Local development
-    return "http://localhost:3000";
-  }
-  // For client-side rendering
-  return "";
-}
-
-/**
- * Fetches all products from the internal API route
+ * Fetches all products
+ * On server-side: directly returns static data
+ * On client-side: calls API route
  */
 export async function fetchProducts(): Promise<Product[]> {
+  // Server-side: return data directly without HTTP request
+  if (typeof window === "undefined") {
+    return staticProducts;
+  }
+
+  // Client-side: fetch from API route
   try {
-    const baseUrl = getBaseUrl();
-    const response = await fetch(`${baseUrl}/api/products`, {
-      next: { revalidate: 0 }, // Revalidate every hour
-    });
+    const response = await fetch("/api/products");
 
     if (!response.ok) {
       throw new Error(`Failed to fetch products: ${response.statusText}`);
@@ -41,14 +32,23 @@ export async function fetchProducts(): Promise<Product[]> {
 }
 
 /**
- * Fetches a single product by ID from the internal API route
+ * Fetches a single product by ID
+ * On server-side: directly finds in static data
+ * On client-side: calls API route
  */
 export async function fetchProductById(id: string | number): Promise<Product> {
+  // Server-side: find product directly
+  if (typeof window === "undefined") {
+    const product = staticProducts.find((p) => p.id === Number(id));
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    return product;
+  }
+
+  // Client-side: fetch from API route
   try {
-    const baseUrl = getBaseUrl();
-    const response = await fetch(`${baseUrl}/api/products/${id}`, {
-      next: { revalidate: 0 },
-    });
+    const response = await fetch(`/api/products/${id}`);
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -66,14 +66,19 @@ export async function fetchProductById(id: string | number): Promise<Product> {
 }
 
 /**
- * Fetches all available product categories from the internal API route
+ * Fetches all available product categories
+ * On server-side: directly returns static data
+ * On client-side: calls API route
  */
 export async function fetchCategories(): Promise<string[]> {
+  // Server-side: return data directly without HTTP request
+  if (typeof window === "undefined") {
+    return staticCategories;
+  }
+
+  // Client-side: fetch from API route
   try {
-    const baseUrl = getBaseUrl();
-    const response = await fetch(`${baseUrl}/api/categories`, {
-      next: { revalidate: 0 },
-    });
+    const response = await fetch("/api/categories");
 
     if (!response.ok) {
       throw new Error(`Failed to fetch categories: ${response.statusText}`);
