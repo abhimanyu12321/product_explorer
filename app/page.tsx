@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+export const dynamic = "force-dynamic";
+
 async function ProductsData() {
   try {
     const [products, categories] = await Promise.all([
