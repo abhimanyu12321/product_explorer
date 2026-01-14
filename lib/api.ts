@@ -25,7 +25,7 @@ export async function fetchProducts(): Promise<Product[]> {
   try {
     const baseUrl = getBaseUrl();
     const response = await fetch(`${baseUrl}/api/products`, {
-      next: { revalidate: 3600 }, // Revalidate every hour
+      next: { revalidate: 0 }, // Revalidate every hour
     });
 
     if (!response.ok) {
@@ -47,7 +47,7 @@ export async function fetchProductById(id: string | number): Promise<Product> {
   try {
     const baseUrl = getBaseUrl();
     const response = await fetch(`${baseUrl}/api/products/${id}`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!response.ok) {
@@ -72,7 +72,7 @@ export async function fetchCategories(): Promise<string[]> {
   try {
     const baseUrl = getBaseUrl();
     const response = await fetch(`${baseUrl}/api/categories`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!response.ok) {
