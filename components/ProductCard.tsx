@@ -34,6 +34,7 @@ export function ProductCard({
             fill
             className="object-contain p-4 transition-transform duration-500 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            unoptimized
           />
           <div className="absolute top-2 right-2 flex gap-2">
             <Badge
