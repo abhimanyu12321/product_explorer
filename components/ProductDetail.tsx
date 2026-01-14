@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Product } from "@/lib/types";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { ArrowLeft, Star, ShoppingCart } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
 import { Card } from "./ui/card";
 
 interface ProductDetailProps {
@@ -90,15 +90,6 @@ export function ProductDetail({ product }: ProductDetailProps) {
                   {product.description}
                 </p>
               </div>
-
-              {/* Add to Cart Button */}
-              <Button
-                size="lg"
-                className="w-full md:w-auto text-lg h-14 px-8 bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              >
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
-              </Button>
             </div>
           </div>
         </Card>
