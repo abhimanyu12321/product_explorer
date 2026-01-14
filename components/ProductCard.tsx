@@ -67,8 +67,8 @@ export function ProductCard({
           <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <CardContent className="p-4 space-y-2">
-          <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors duration-300 min-h-14">
+        <CardContent className="px-4 pt-4 pb-1 space-y-2">
+          <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors duration-300 min-h-8">
             {product.title}
           </h3>
 
@@ -79,7 +79,7 @@ export function ProductCard({
           </div>
         </CardContent>
 
-        <CardFooter className="p-4 pt-0">
+        <CardFooter className="px-4 pt-0">
           <div className="flex items-center justify-between w-full">
             <span className="text-2xl font-bold text-primary">
               ${product.price.toFixed(2)}
